@@ -1,0 +1,4 @@
+{
+  "jwtPrivateKey": "pythonji_jwtPrivateKey",
+  "db": "pythonji"
+}

@@ -1,0 +1,4 @@
+{
+  "jwtPrivateKey": "defaultJWT",
+  "db":"mongodb://localhost/pythonji"
+}
