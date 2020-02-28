@@ -12,6 +12,7 @@ const serverConfig = require('../config/server');
 const multer = require('multer');
 const path = require('path');
 const Notification = require('../models/notification');
+// var upload = multer({ dest: 'uploads/' })
 
 
 
@@ -20,7 +21,7 @@ const storage = multer.diskStorage({
     if (serverConfig.productionMode) {
       cb(null, 'public/assets/images/avatars');
     } else {
-      cb(null, 'angular-src/src/assets/images/avatars');
+      cb(null, '../frontend/src/assets/images/avatars');
     }
   },
   filename: function (req, file, cb) {
@@ -140,7 +141,7 @@ router.post('/profile', (req, res, next) => {
 });
 
 router.post('/updateProfile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-  // req.logout();
+  
   const user = {
     username: req.body.username,
     email: req.body.email,
@@ -187,7 +188,7 @@ router.post('/updateProfile', passport.authenticate('jwt', { session: false }), 
 });
 
 router.post('/addAvatar',fileUpload, (req, res, next) => {
-  console.log(req.files);
+  // console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH', req.body.username);
   const username = req.body.username;
   const avatarName = req.files['avatar'][0].filename;
   User.updateAvatar(username, avatarName, (err, data) => {
@@ -200,8 +201,13 @@ router.post('/addAvatar',fileUpload, (req, res, next) => {
       });
     } else {
       if (serverConfig.productionMode) {
-        res.redirect('/users/' + username);
+        // res.redirect('/users/' + username);
+        res.json({
+          success: true,
+          msg: `Avatar uploaded Successfully`,
+        });
       } else {
+        // res.redirect('/users/' + username);
         res.json({
           success: true,
           msg: `Avatar uploaded Successfully`,
@@ -240,7 +246,7 @@ router.post('/forgotPassword/answer', (req, res, next) => {
     if (err) {
       console.error(``);
     }
-    if(answer === user.securityAns) {
+    if(answer.toLowerCase() === user.securityAns.toLowerCase()) {
       user.password = password;
       User.updatePassword(user, (err, data) => {
         if (err) {
@@ -262,7 +268,7 @@ router.post('/forgotPassword/answer', (req, res, next) => {
 });
 
 router.post('/checkUsername', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-  if (req.body.username === req.user.username) {
+  if (true) {//req.body.username === req.user.username
     res.json({
       authentication: true,
     });

@@ -33,6 +33,7 @@
     "multer": "^1.4.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "please-wait": "0.0.5",
     "request": "^2.88.2",
     "session": "^0.1.0",
