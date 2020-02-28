@@ -11,13 +11,13 @@ const Subtopic = require('../models/subtopic');
 const Notification = require('../models/notification');
 
 
-router.post('/addTopic', (req, res, next) => {
-  // if (req.body.role !== "Admin" && req.body.role !== 'Content Manager') {
-  //   return res.json({
-  //     success: false,
-  //     msg: `You are not authorized`,
-  //   });
-  // }
+router.post('/addTopic', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+  if (req.user.role !== "Admin" && req.user.role !== 'Content Manager') {
+    return res.json({
+      success: false,
+      msg: `You are not authorized`,
+    });
+  }
 
   const newTopic = new Topic({
     name: req.body.name,

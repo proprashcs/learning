@@ -93,10 +93,10 @@ router.post('/getQuestionByUsername', (req, res, next) => {
   });
 });
 
-router.post('/addQuestion',  (req, res, next) => {
+router.post('/addQuestion', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
   const newQuestion = new Question({
-    username:  req.body.username,
+    username: req.user.username,
     tags: req.body.tags,
     question: req.body.question,
   });
@@ -116,7 +116,7 @@ router.post('/addQuestion',  (req, res, next) => {
   });
 });
 
-router.post('/editQuestion',  (req, res, next) => {
+router.post('/editQuestion', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
   Question.getQuestionById(req.body.id, (err, data) => {
     if (err) {
@@ -125,7 +125,7 @@ router.post('/editQuestion',  (req, res, next) => {
         msg: "Something went wrong",
       });
     } else {
-      if (data.username !==  req.body.username) {
+      if (data.username !== req.user.username) {
         return res.json({
           success: false,
           msg: "Unauthorized",
@@ -157,7 +157,7 @@ router.post('/editQuestion',  (req, res, next) => {
   });
 });
 
-router.post('/deleteQuestion',  (req, res, next) => {
+router.post('/deleteQuestion', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const questionId = req.body.id;
 
   Question.getQuestionById(questionId, (err, data) => {
@@ -167,7 +167,7 @@ router.post('/deleteQuestion',  (req, res, next) => {
         msg: "Something went wrong",
       });
     } else {
-      if (data.username !==  req.body.username) {
+      if (data.username !== req.user.username) {
         return res.json({
           success: false,
           msg: "Unauthorized",

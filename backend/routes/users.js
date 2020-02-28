@@ -102,7 +102,6 @@ router.post('/authenticate', (req, res, next) => {
         console.error(`Error in password comparision
           ${ err }`);
       }
-      console.log(user);
       if (isMatch) {
         let token = jwt.sign(user.toJSON(), config.secret, {
           expiresIn: 608400,
@@ -140,7 +139,8 @@ router.post('/profile', (req, res, next) => {
   });
 });
 
-router.post('/updateProfile',  (req, res, next) => {
+router.post('/updateProfile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  // req.logout();
   const user = {
     username: req.body.username,
     email: req.body.email,
@@ -158,8 +158,10 @@ router.post('/updateProfile',  (req, res, next) => {
     stackoverflowLink: req.body.stackoverflowLink,
   };
   User.authUser(user.username, (err, data) => {
-    console.log('this is authUser');
-    if (data.username ===  req.body.username) {
+    // console.log('_________________XXXXXXXXX')
+    // console.log(req)
+   
+    if (1) {//data.username === req.user.username
       User.updateProfile(user, (err, data) => {
         if (err) {
           console.error(`Error in updating profile
@@ -185,6 +187,7 @@ router.post('/updateProfile',  (req, res, next) => {
 });
 
 router.post('/addAvatar',fileUpload, (req, res, next) => {
+  console.log(req.files);
   const username = req.body.username;
   const avatarName = req.files['avatar'][0].filename;
   User.updateAvatar(username, avatarName, (err, data) => {
@@ -258,8 +261,8 @@ router.post('/forgotPassword/answer', (req, res, next) => {
   });
 });
 
-router.post('/checkUsername',  (req, res, next) => {
-  if (req.body.username ===  req.body.username) {
+router.post('/checkUsername', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  if (req.body.username === req.user.username) {
     res.json({
       authentication: true,
     });
@@ -270,9 +273,9 @@ router.post('/checkUsername',  (req, res, next) => {
   }
 });
 
-router.get('/getRole',  (req, res, next) => {
+router.get('/getRole', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   res.json({
-    role: 'Admin',
+    role: req.user.role,
   });
 });
 
@@ -308,7 +311,7 @@ router.post('/countUsers', (req, res, next) => {
   });
 });
 
-router.post('/makeContentManager',  (req, res, next) => {
+router.post('/makeContentManager', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== 'Admin') {
     res.json({
       success: false,

@@ -10,7 +10,7 @@ const NewsFeed = require('../models/newsFeed');
 const Notification = require('../models/notification');
 
 
-router.post('/addFeed',  (req, res, next) => {
+router.post('/addFeed', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== 'Admin') {
     return res.json({
       success: false,
@@ -38,7 +38,7 @@ router.post('/addFeed',  (req, res, next) => {
   });
 });
 
-router.get('/getAllFeed',   (req, res, next) => {
+router.get('/getAllFeed',  passport.authenticate('jwt', { session: false }), (req, res, next) => {
   NewsFeed.getAllFeed((err, data) => {
     if (err) {
       console.error(`Error fetching NewsFeeds`);

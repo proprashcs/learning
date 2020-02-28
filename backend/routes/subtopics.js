@@ -12,13 +12,13 @@ const Section = require('../models/section');
 const Notification = require('../models/notification');
 
 
-router.post('/addSubtopic',  (req, res, next) => {
-  // if (req.user.role !== "Admin" && req.user.role !== 'Content Manager') {
-  //   return res.json({
-  //     success: false,
-  //     msg: `You are not authorized`,
-  //   });
-  // }
+router.post('/addSubtopic', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  if (req.user.role !== "Admin" && req.user.role !== 'Content Manager') {
+    return res.json({
+      success: false,
+      msg: `You are not authorized`,
+    });
+  }
 
   const newSubtopic = new Subtopic({
     name: req.body.name,
@@ -121,7 +121,7 @@ router.post('/editSubtopic', passport.authenticate('jwt', {session: false}), (re
   });
 });
 
-router.post('/deleteSubtopic',  (req, res, next) => {
+router.post('/deleteSubtopic', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== "Admin" && req.user.role !== 'Content Manager') {
     return res.json({
       success: false,

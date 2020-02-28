@@ -31,7 +31,7 @@ router.post('/submitCode', passport.authenticate('jwt', {session: false}), (req,
           title: req.body.title,
           body: req.body.body,
           privacy: req.body.privacy,
-          username:  req.body.username,
+          username: req.user.username,
           language: req.body.language,
         });
 
@@ -65,8 +65,8 @@ router.get('/getRecentSubmissions', (req, res, next) => {
   });
 });
 
-router.get('/getUserSubmissions',  (req, res, next) => {
-  Code.getUserSubmissions( req.body.username, (err, data) => {
+router.get('/getUserSubmissions', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  Code.getUserSubmissions(req.user.username, (err, data) => {
     if (err) {
       console.error(`Erorr fetching user submissions
         ${ err }`);
@@ -119,7 +119,7 @@ router.post('/countCodes', (req, res, next) => {
   });
 });
 
-router.post('/deleteCode',  (req, res, next) => {
+router.post('/deleteCode', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   Code.getSubmissionById(req.body.id, (err, data) => {
     if (err) {
       console.error(`Error feching submission to delete
@@ -129,7 +129,7 @@ router.post('/deleteCode',  (req, res, next) => {
         msg: `Something went wrong, please try again`,
       });
     } else {
-      if (data.username !==  req.body.username) {
+      if (data.username !== req.user.username) {
         res.json({
           success: false,
           msg: `You are not authorized`,

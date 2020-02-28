@@ -10,7 +10,7 @@ const Source = require('../models/source');
 const Notification = require('../models/notification');
 
 
-router.post('/addSource',  (req, res, next) => {
+router.post('/addSource', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== 'Admin' && req.user.role !== 'Content Manager') {
     return res.json({
       success: false,

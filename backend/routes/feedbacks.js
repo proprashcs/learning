@@ -10,10 +10,10 @@ const Feedback = require('../models/feedback');
 const Notification = require('../models/notification');
 
 
-router.post('/addFeedback',  (req, res, next) => {
+router.post('/addFeedback', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const newFeedback = new Feedback({
     body: req.body.body,
-    username:  req.body.username,
+    username: req.user.username,
     subject: req.body.subject,
   });
 
@@ -35,7 +35,7 @@ router.post('/addFeedback',  (req, res, next) => {
   });
 });
 
-router.get('/getAllFeedback',  (req, res, next) => {
+router.get('/getAllFeedback', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== 'Admin') {
     return res.json({
       success: false,
@@ -52,7 +52,7 @@ router.get('/getAllFeedback',  (req, res, next) => {
   }
 });
 
-router.post('/replyToFeedback',  (req, res, next) => {
+router.post('/replyToFeedback', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== 'Admin') {
     return res.json({
       success: false,
@@ -96,8 +96,8 @@ router.post('/replyToFeedback',  (req, res, next) => {
   }
 });
 
-router.get('/getFeedbackByUsername',  (req, res, body) => {
-  Feedback.getFeedbackByUsername( req.body.username, (err, data) => {
+router.get('/getFeedbackByUsername', passport.authenticate('jwt', { session: false }), (req, res, body) => {
+  Feedback.getFeedbackByUsername(req.user.username, (err, data) => {
     if (err) {
       console.error(`Error in fetching user feedbacks
         ${err}`);

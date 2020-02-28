@@ -1,7 +1,4 @@
-//jshint esversion:6, node: true
-
 "use strict";
-
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');

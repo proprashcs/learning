@@ -36,7 +36,7 @@ const fileUpload = upload.fields([{
   maxCount: 1
 }, ]);
 
-router.post('/addPlaylist',  (req, res, next) => {
+router.post('/addPlaylist', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== 'Admin' && req.user.role !== 'Content Manager') {
     return res.json({
       success: false,
@@ -135,7 +135,7 @@ router.post('/getPlaylist', (req, res, next) => {
   });
 });
 
-router.post('/editPlaylist',  (req, res, next) => {
+router.post('/editPlaylist', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== 'Admin' && req.user.role !== 'Content Manager') {
     return res.json({
       success: false,
@@ -166,7 +166,7 @@ router.post('/editPlaylist',  (req, res, next) => {
   }
 });
 
-router.post('/deleteVideo',  (req, res, next) => {
+router.post('/deleteVideo', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== 'Admin' && req.user.role !== 'Content Manager') {
     return res.json({
       success: false,
@@ -205,7 +205,7 @@ router.post('/deleteVideo',  (req, res, next) => {
   }
 });
 
-router.post('/deletePlaylist',  (req, res, next) => {
+router.post('/deletePlaylist', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== 'Admin' && req.user.role !== 'Content Manager') {
     return res.json({
       success: false,

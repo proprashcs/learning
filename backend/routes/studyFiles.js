@@ -84,7 +84,7 @@ router.post('/getStudyFilesForContent', (req, res, next) => {
   });
 });
 
-router.post('/deleteStudyFile',  (req, res, next) => {
+router.post('/deleteStudyFile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role == "user") {
     return res.json({
       success: false,

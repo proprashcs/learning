@@ -92,11 +92,9 @@ router.post('/getBlogByUsername', (req, res, next) => {
   });
 });
 
-router.post('/addBlog',  (req, res, next) => {
-  console.log('this is add blog');
-  // console.log(req.body);
+router.post('/addBlog', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const newBlog = new Blog({
-    username: req.body.username,
+    username: req.user.username,
     tags: req.body.tags,
     heading: req.body.heading,
     body: req.body.body,
@@ -117,7 +115,7 @@ router.post('/addBlog',  (req, res, next) => {
   });
 });
 
-router.post('/editBlog',  (req, res, next) => {
+router.post('/editBlog', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
   Blog.getBlogById(req.body.id, (err, data) => {
     if (err) {
@@ -126,7 +124,7 @@ router.post('/editBlog',  (req, res, next) => {
         msg: "Something went wrong",
       });
     } else {
-      if (data.username !==  req.body.username) {
+      if (data.username !== req.user.username) {
         return res.json({
           success: false,
           msg: "Unautorized",
@@ -159,19 +157,18 @@ router.post('/editBlog',  (req, res, next) => {
   });
 });
 
-router.post('/deleteBlog',  (req, res, next) => {
+router.post('/deleteBlog', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
   const blogId = req.body.id;
 
   Blog.getBlogById(blogId, (err, data) => {
-    console.log('this is getBlogById');
     if (err) {
       return res.json({
         success: false,
         msg: "Something went wrong",
       });
     } else {
-      if (data.username !==  req.body.username) {
+      if (data.username !== req.user.username) {
         return res.json({
           success: false,
           msg: "Unauthorized",

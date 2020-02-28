@@ -9,12 +9,12 @@ const passport = require('passport');
 const Comment = require("../models/comment");
 const Notification = require('../models/notification');
 
-router.post('/addComment',  (req, res, next) => {
+router.post('/addComment', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
   const newComment = new Comment({
     for: req.body.for,
     id: req.body.id,
-    username:  req.body.username,
+    username: req.user.username,
     body: req.body.body,
   });
 

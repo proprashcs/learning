@@ -9,7 +9,7 @@ const config = require('../config/database');
 const Notification = require('../models/notification');
 
 
-router.post('/addAdminNotification',  (req, res, next) => {
+router.post('/addAdminNotification', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== 'Admin') {
     return res.json({
         success: false,

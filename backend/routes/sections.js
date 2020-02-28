@@ -11,7 +11,7 @@ const Subtopic = require('../models/subtopic');
 const Notification = require('../models/notification');
 
 
-router.post('/addSection',  (req, res, next) => {
+router.post('/addSection', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== "Admin" && req.user.role !== 'Content Manager') {
     return res.json({
       success: false,
@@ -92,7 +92,7 @@ router.post('/getSection', (req, res, next) => {
   });
 });
 
-router.post('/editSection',  (req, res, next) => {
+router.post('/editSection', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   if (req.user.role !== "Admin" && req.user.role !== 'Content Manager') {
     return res.json({
       success: false,
