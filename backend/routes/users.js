@@ -37,7 +37,7 @@ const upload = multer({ storage: storage });
 
 
 // Register
-router.post('/register', (req, res, next) => {
+router.post('/register' , (req, res, next) => {
   let newUser = new User({
     name: req.body.name,
     email: req.body.email,
@@ -107,6 +107,7 @@ router.post('/authenticate', (req, res, next) => {
         let token = jwt.sign(user.toJSON(), config.secret, {
           expiresIn: 608400,
         });
+        req.logIn(user, (err) => {
 
         res.json({
           success: true,
@@ -118,13 +119,22 @@ router.post('/authenticate', (req, res, next) => {
           },
           role: user.role,
         });
+
+      });
+    
+  
+    
       } else {
         res.json({
           success: false,
           msg: 'Invalid Password',
         });
       }
+     
+      
     });
+
+    
   });
 });
 
@@ -268,7 +278,7 @@ router.post('/forgotPassword/answer', (req, res, next) => {
 });
 
 router.post('/checkUsername', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-  if (true) {//req.body.username === req.user.username
+  if (req.body.username === req.user.username) {//req.body.username === req.user.username
     res.json({
       authentication: true,
     });
@@ -279,7 +289,7 @@ router.post('/checkUsername', passport.authenticate('jwt', { session: false }), 
   }
 });
 
-router.get('/getRole', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.get('/getRole', passport.authenticate('jwt', { session: true }), (req, res, next) => {
   res.json({
     role: req.user.role,
   });

@@ -4,7 +4,8 @@
   "description": "tutorial site",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-async-errors": "^2.1.0",
-    "express-session": "^1.17.0",
     "fawn": "^2.1.5",
     "helmet": "^3.21.2",
     "joi": "^13.1.0",
@@ -31,9 +31,8 @@
     "moment": "^2.20.1",
     "mongoose": "^5.9.2",
     "multer": "^1.4.2",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0",
+    "passport": "^0.3.1",
+    "passport-jwt": "^3.0.0",
     "please-wait": "0.0.5",
     "request": "^2.88.2",
     "session": "^0.1.0",
