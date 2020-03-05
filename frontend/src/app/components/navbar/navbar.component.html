@@ -18,7 +18,7 @@
         <li [routerLinkActive] = "['active']"><a [routerLink] = "['/blogs']" [queryParams]="{ pn: 0 }"><i class="fa fa-pencil" aria-hidden="true"></i> BLOGS</a></li>
         <li *ngIf="!loggedIn" [routerLinkActive] = "['active']" [routerLinkActiveOptions] = "{ exact: true }"><a [routerLink] = "['/login']"><i class="fa fa-sign-in" aria-hidden="true"></i> LOGIN</a></li>
         <li *ngIf="!loggedIn" [routerLinkActive] = "['active']" [routerLinkActiveOptions] = "{ exact: true }"><a [routerLink] = "['/register']"><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</a></li>
-        <li *ngIf="loggedIn" [routerLinkActive] = "['active']" [routerLinkActiveOptions] = "{ exact: true }"><a [routerLink] = "['/code']"><i class="fa fa-terminal" aria-hidden="true"></i> CODE</a></li>
+        <!-- <li *ngIf="loggedIn" [routerLinkActive] = "['active']" [routerLinkActiveOptions] = "{ exact: true }"><a [routerLink] = "['/code']"><i class="fa fa-terminal" aria-hidden="true"></i> CODE</a></li> -->
         <li *ngIf="loggedIn" class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell" aria-hidden="true"><i *ngIf="newNotification" class="fa fa-exclamation" aria-hidden="true"></i></i></a>
           <ul class="dropdown-menu nav-user-menu">
