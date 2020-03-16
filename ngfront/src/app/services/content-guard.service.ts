@@ -7,6 +7,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ContentGuardService {
@@ -26,13 +27,13 @@ export class ContentGuardService {
       this.serverAddress = this.mainService.getServerAddress();
    }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<any> {
     let url = state.url;
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.get( this.serverAddress + '/users/getRole', { headers: headers })
+    return this.http.get<any>( this.serverAddress + '/users/getRole', { headers: headers })
       .pipe(map(res => {
         if(res['role'] === 'Admin' || res['role'] === 'Content Manager') {
           return true;

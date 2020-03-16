@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tokenNotExpired } from 'angular2-jwt';
+// import { tokenNotExpired } from 'angular2-jwt';
+import { JwtHelperService  } from '@auth0/angular-jwt';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class FeedbackService {
@@ -18,38 +20,38 @@ export class FeedbackService {
     this.serverAddress = this.mainService.getServerAddress();
    }
 
-   addFeedback(newFeedback) {
+   addFeedback(newFeedback):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post( this.serverAddress + '/feedbacks/addFeedback', newFeedback, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/feedbacks/addFeedback', newFeedback, {headers: headers})
        .pipe(map(res => res));
    }
 
-   getAllFeedback() {
+   getAllFeedback():Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.get( this.serverAddress + '/feedbacks/getAllFeedback', {headers: headers})
+     return this.http.get<any>( this.serverAddress + '/feedbacks/getAllFeedback', {headers: headers})
        .pipe(map(res => res));
    }
 
-   replyToFeedback(newReply) {
+   replyToFeedback(newReply):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post( this.serverAddress + '/feedbacks/replyToFeedback', newReply, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/feedbacks/replyToFeedback', newReply, {headers: headers})
        .pipe(map(res => res));
    }
-   getFeedbackByUsername() {
+   getFeedbackByUsername():Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.get( this.serverAddress + '/feedbacks/getFeedbackByUsername', {headers: headers})
+     return this.http.get<any>( this.serverAddress + '/feedbacks/getFeedbackByUsername', {headers: headers})
        .pipe(map(res => res));
    }
 

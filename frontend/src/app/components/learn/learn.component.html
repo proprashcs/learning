@@ -18,7 +18,7 @@
     </div>
     <div class="col-sm-9 mainBody">
 
-        <div *ngIf="contentSwitchValue === 'cover'">
+        <!-- <div *ngIf="contentSwitchValue === 'cover'">
           <div class="page-header mainBodyHeading">
             <h2>Learn</h2>
           </div>
@@ -29,9 +29,9 @@
             learning experience. Any help is welcome, as we need more content managers to add and improve quality of content.
             You can request for topics and suggest resources to us via the contact us page.
           </p>
-        </div>
+        </div> -->
 
-        <div *ngIf="contentSwitchValue === 'textContent'">
+        <div *ngIf="contentSwitchValue === 'textContent' || contentSwitchValue === 'cover'">
           <div *ngIf="editBtn" class="editBtn">
             <button (click)="editBtnFunc()" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
           </div>

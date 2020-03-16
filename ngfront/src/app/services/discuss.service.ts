@@ -4,6 +4,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class DiscussService {
@@ -18,106 +19,106 @@ export class DiscussService {
       this.serverAddress = this.mainService.getServerAddress();
    }
 
-   addQuestion(question) {
+   addQuestion(question):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post( this.serverAddress + '/questions/addQuestion', question, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/questions/addQuestion', question, {headers: headers})
        .pipe(map(res => res));
    }
 
-   getQuestionCount(questionInfo) {
+   getQuestionCount(questionInfo):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/questions/countQuestions', questionInfo, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/questions/countQuestions', questionInfo, {headers: headers})
        .pipe(map(res => res));
    }
 
-   getQuestions(questionInfo) {
+   getQuestions(questionInfo):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/questions', questionInfo, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/questions', questionInfo, {headers: headers})
        .pipe(map(res => res));
    }
 
-   getQuestionById(question) {
+   getQuestionById(question):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/questions/getQuestionById', question, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/questions/getQuestionById', question, {headers: headers})
        .pipe(map(res => res));
    }
 
-   getQuestionByUsername(question) {
+   getQuestionByUsername(question):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/questions/getQuestionByUsername', question, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/questions/getQuestionByUsername', question, {headers: headers})
        .pipe(map(res => res));
    }
 
-   searchQuestion(question) {
+   searchQuestion(question):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/questions/searchQuestions', question, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/questions/searchQuestions', question, {headers: headers})
        .pipe(map(res => res));
    }
 
-   editQuestion(question) {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     this.token = localStorage.getItem('id_token');
-     headers.append('Authorization', this.token);
-     return this.http.post( this.serverAddress + '/questions/editQuestion', question, {headers: headers})
-       .pipe(map(res => res));
-   }
-
-   deleteQuestion(question) {
+   editQuestion(question):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post( this.serverAddress + '/questions/deleteQuestion', question, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/questions/editQuestion', question, {headers: headers})
        .pipe(map(res => res));
    }
 
-   getAnswerByQuestion(question) {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/answers/getAnswerByQuestion', question, {headers: headers})
-       .pipe(map(res => res));
-   }
-
-   getAnswerById(answer) {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/answers/getAnswerById', answer, {headers: headers})
-       .pipe(map(res => res));
-   }
-
-   addAnswer(answer) {
+   deleteQuestion(question):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post( this.serverAddress + '/answers/addAnswer', answer, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/questions/deleteQuestion', question, {headers: headers})
        .pipe(map(res => res));
    }
 
-   editAnswer(answer) {
+   getAnswerByQuestion(question):Observable<any> {
+     let headers = new HttpHeaders;
+     headers.append('Content-Type', 'application/json');
+     return this.http.post<any>( this.serverAddress + '/answers/getAnswerByQuestion', question, {headers: headers})
+       .pipe(map(res => res));
+   }
+
+   getAnswerById(answer):Observable<any> {
+     let headers = new HttpHeaders;
+     headers.append('Content-Type', 'application/json');
+     return this.http.post<any>( this.serverAddress + '/answers/getAnswerById', answer, {headers: headers})
+       .pipe(map(res => res));
+   }
+
+   addAnswer(answer):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post( this.serverAddress + '/answers/editAnswer', answer, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/answers/addAnswer', answer, {headers: headers})
        .pipe(map(res => res));
    }
 
-   deleteAnswer(answer) {
+   editAnswer(answer):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post( this.serverAddress + '/answers/deleteAnswer', answer, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/answers/editAnswer', answer, {headers: headers})
+       .pipe(map(res => res));
+   }
+
+   deleteAnswer(answer):Observable<any> {
+     let headers = new HttpHeaders;
+     headers.append('Content-Type', 'application/json');
+     this.token = localStorage.getItem('id_token');
+     headers.append('Authorization', this.token);
+     return this.http.post<any>( this.serverAddress + '/answers/deleteAnswer', answer, {headers: headers})
        .pipe(map(res => res));
    }
 

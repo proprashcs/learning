@@ -4,6 +4,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class BlogService {
@@ -19,69 +20,69 @@ export class BlogService {
       this.serverAddress = this.mainService.getServerAddress();
    }
 
-   getBlogCount(blogInfo) {
+   getBlogCount(blogInfo):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/blogs/countBlogs', blogInfo, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/blogs/countBlogs', blogInfo, {headers: headers})
        .pipe(map(res => res));
    }
 
-  getBlogs(blogInfo) {
+  getBlogs(blogInfo):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/blogs', blogInfo, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs', blogInfo, {headers: headers})
       .pipe(map(res => res));
   }
 
-  searchBlogs(blogObj) {
+  searchBlogs(blogObj):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/blogs/searchBlogs', blogObj, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs/searchBlogs', blogObj, {headers: headers})
       .pipe(map(res => res));
   }
 
-  getBlogById(blog) {
+  getBlogById(blog):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/blogs/getBlogById', blog, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs/getBlogById', blog, {headers: headers})
       .pipe(map(res => res));
   }
 
-  getBlogByUsername(user) {
+  getBlogByUsername(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/blogs/getBlogByUsername', user, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs/getBlogByUsername', user, {headers: headers})
       .pipe(map(res => res));
   }
 
-  addBlog(blog) {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    this.token = localStorage.getItem('id_token');
-    headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/blogs/addBlog', blog, {headers: headers})
-      .pipe(map(res => res));
-  }
-
-  editBlog(blog) {
+  addBlog(blog):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/blogs/editBlog', blog, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs/addBlog', blog, {headers: headers})
       .pipe(map(res => res));
   }
 
-  deleteBlog(blog) {
+  editBlog(blog):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/blogs/deleteBlog', blog, { headers: headers }).
+    return this.http.post<any>( this.serverAddress + '/blogs/editBlog', blog, {headers: headers})
+      .pipe(map(res => res));
+  }
+
+  deleteBlog(blog):Observable<any> {
+    let headers = new HttpHeaders;
+    headers.append('Content-Type', 'application/json');
+    this.token = localStorage.getItem('id_token');
+    headers.append('Authorization', this.token);
+    return this.http.post<any>( this.serverAddress + '/blogs/deleteBlog', blog, { headers: headers }).
     pipe(map(res => res));
   }
 

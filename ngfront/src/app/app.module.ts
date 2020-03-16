@@ -119,7 +119,9 @@ import { AddStudyFileComponent } from './components/add-study-file/add-study-fil
     AppRoutingModule,
     HttpClientModule,
     FlashMessagesModule,
-    AceEditorModule
+    AceEditorModule,
+    FormsModule,
+    FlashMessagesModule.forRoot(),
     
   ],
   providers: [

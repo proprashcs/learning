@@ -4,6 +4,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class NotificationService {
@@ -18,17 +19,17 @@ export class NotificationService {
     this.serverAddress = this.mainService.getServerAddress();
   }
 
-  getUnreadNotifications(userData) {
+  getUnreadNotifications(userData):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/notifications/getUnreadNotifications', userData, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/notifications/getUnreadNotifications', userData, {headers: headers})
       .pipe(map(res => res));
   }
 
-  markAsRead(data) {
+  markAsRead(data):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/notifications/markAsRead', data, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/notifications/markAsRead', data, {headers: headers})
       .pipe(map(res => res));
   }
 

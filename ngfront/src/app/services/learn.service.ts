@@ -4,6 +4,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class LearnService {
@@ -20,224 +21,224 @@ export class LearnService {
    }
 
 
-  addTopic(topic) {
+  addTopic(topic):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/topics/addTopic', topic, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/topics/addTopic', topic, {headers: headers})
       .pipe(map(res => res));
   }
 
-  getAllTopicNames() {
+  getAllTopicNames():Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.get( this.serverAddress + '/topics/getAllTopicNames', {headers: headers})
+    return this.http.get<any>( this.serverAddress + '/topics/getAllTopicNames', {headers: headers})
       .pipe(map(res => res));
   }
 
-  getTopic(topic) {
+  getTopic(topic):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/topics/getTopic', topic, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/topics/getTopic', topic, {headers: headers})
       .pipe(map(res => res));
   }
 
-  editTopic(topic) {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    this.token = localStorage.getItem('id_token');
-    headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/topics/editTopic', topic, {headers: headers})
-      .pipe(map(res => res));
-  }
-
-  deleteTopic(topic) {
+  editTopic(topic):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/topics/deleteTopic', topic, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/topics/editTopic', topic, {headers: headers})
       .pipe(map(res => res));
   }
 
-  addSubtopic(subtopic) {
+  deleteTopic(topic):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/subtopics/addSubtopic', subtopic, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/topics/deleteTopic', topic, {headers: headers})
       .pipe(map(res => res));
   }
 
-  getAllSubtopicForTopic(subtopic) {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/subtopics/getAllSubtopicForTopic', subtopic, {headers: headers})
-      .pipe(map(res => res));
-  }
-
-  getSubtopic(subtopic) {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/subtopics/getSubtopic', subtopic, {headers: headers})
-      .pipe(map(res => res));
-  }
-
-  editSubtopic(subtopic) {
+  addSubtopic(subtopic):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/subtopics/editSubtopic', subtopic, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/subtopics/addSubtopic', subtopic, {headers: headers})
       .pipe(map(res => res));
   }
 
-  deleteSubtopic(subtopic) {
+  getAllSubtopicForTopic(subtopic):Observable<any> {
+    let headers = new HttpHeaders;
+    headers.append('Content-Type', 'application/json');
+    return this.http.post<any>( this.serverAddress + '/subtopics/getAllSubtopicForTopic', subtopic, {headers: headers})
+      .pipe(map(res => res));
+  }
+
+  getSubtopic(subtopic):Observable<any> {
+    let headers = new HttpHeaders;
+    headers.append('Content-Type', 'application/json');
+    return this.http.post<any>( this.serverAddress + '/subtopics/getSubtopic', subtopic, {headers: headers})
+      .pipe(map(res => res));
+  }
+
+  editSubtopic(subtopic):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/subtopics/deleteSubtopic', subtopic, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/subtopics/editSubtopic', subtopic, {headers: headers})
       .pipe(map(res => res));
   }
 
-  addSection(section) {
+  deleteSubtopic(subtopic):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/sections/addSection', section, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/subtopics/deleteSubtopic', subtopic, {headers: headers})
       .pipe(map(res => res));
   }
 
-  getAllSectionForSubtopic(section) {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/sections/getAllSectionForSubtopic', section, {headers: headers})
-      .pipe(map(res => res));
-  }
-
-  getSection(section) {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/sections/getSection', section, {headers: headers})
-      .pipe(map(res => res));
-  }
-
-  editSection(section) {
+  addSection(section):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/sections/editSection', section, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/sections/addSection', section, {headers: headers})
       .pipe(map(res => res));
   }
 
-  deleteSection(section) {
+  getAllSectionForSubtopic(section):Observable<any> {
+    let headers = new HttpHeaders;
+    headers.append('Content-Type', 'application/json');
+    return this.http.post<any>( this.serverAddress + '/sections/getAllSectionForSubtopic', section, {headers: headers})
+      .pipe(map(res => res));
+  }
+
+  getSection(section):Observable<any> {
+    let headers = new HttpHeaders;
+    headers.append('Content-Type', 'application/json');
+    return this.http.post<any>( this.serverAddress + '/sections/getSection', section, {headers: headers})
+      .pipe(map(res => res));
+  }
+
+  editSection(section):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/sections/deleteSection', section, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/sections/editSection', section, {headers: headers})
       .pipe(map(res => res));
   }
 
-  getEbooks(ebook) {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/ebooks/getEbooksForContent', ebook, {headers: headers})
-      .pipe(map(res => res));
-  }
-
-  deleteEbook(ebook) {
+  deleteSection(section):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/studyFiles/deleteEbook', ebook, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/sections/deleteSection', section, {headers: headers})
       .pipe(map(res => res));
   }
 
-  getStudyFiles(file) {
+  getEbooks(ebook):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/studyFiles/getStudyFilesForContent', file, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/ebooks/getEbooksForContent', ebook, {headers: headers})
       .pipe(map(res => res));
   }
 
-  deleteStudyFile(file) {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    this.token = localStorage.getItem('id_token');
-    headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/studyFiles/deleteStudyFile', file, {headers: headers})
-      .pipe(map(res => res));
-  }
-
-  addPlaylist(playlist) {
+  deleteEbook(ebook):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/playlists/addPlaylist', playlist, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/studyFiles/deleteEbook', ebook, {headers: headers})
       .pipe(map(res => res));
   }
 
-  getPlaylistBySubtopic(playlist) {
+  getStudyFiles(file):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/playlists/getPlaylistBySubtopic', playlist, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/studyFiles/getStudyFilesForContent', file, {headers: headers})
       .pipe(map(res => res));
   }
 
-  getPlaylist(playlist) {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    return this.http.post( this.serverAddress + '/playlists/getPlaylist', playlist, {headers: headers})
-      .pipe(map(res => res));
-  }
-
-  editPlaylist(playlist) {
+  deleteStudyFile(file):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/playlists/editPlaylist', playlist, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/studyFiles/deleteStudyFile', file, {headers: headers})
       .pipe(map(res => res));
   }
 
-  deleteVideo(video) {
+  addPlaylist(playlist):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/playlists/deleteVideo', video, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/playlists/addPlaylist', playlist, {headers: headers})
       .pipe(map(res => res));
   }
 
-  deletePlaylist(playlist) {
+  getPlaylistBySubtopic(playlist):Observable<any> {
+    let headers = new HttpHeaders;
+    headers.append('Content-Type', 'application/json');
+    return this.http.post<any>( this.serverAddress + '/playlists/getPlaylistBySubtopic', playlist, {headers: headers})
+      .pipe(map(res => res));
+  }
+
+  getPlaylist(playlist):Observable<any> {
+    let headers = new HttpHeaders;
+    headers.append('Content-Type', 'application/json');
+    return this.http.post<any>( this.serverAddress + '/playlists/getPlaylist', playlist, {headers: headers})
+      .pipe(map(res => res));
+  }
+
+  editPlaylist(playlist):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/playlists/deletePlaylist', playlist, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/playlists/editPlaylist', playlist, {headers: headers})
       .pipe(map(res => res));
   }
 
-  addSource(newSource) {
+  deleteVideo(video):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post( this.serverAddress + '/sources/addSource', newSource, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/playlists/deleteVideo', video, {headers: headers})
       .pipe(map(res => res));
   }
 
-  getAllSources() {
+  deletePlaylist(playlist):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.get( this.serverAddress + '/sources/getAllSource', {headers: headers})
+    this.token = localStorage.getItem('id_token');
+    headers.append('Authorization', this.token);
+    return this.http.post<any>( this.serverAddress + '/playlists/deletePlaylist', playlist, {headers: headers})
+      .pipe(map(res => res));
+  }
+
+  addSource(newSource):Observable<any> {
+    let headers = new HttpHeaders;
+    headers.append('Content-Type', 'application/json');
+    this.token = localStorage.getItem('id_token');
+    headers.append('Authorization', this.token);
+    return this.http.post<any>( this.serverAddress + '/sources/addSource', newSource, {headers: headers})
+      .pipe(map(res => res));
+  }
+
+  getAllSources():Observable<any> {
+    let headers = new HttpHeaders;
+    headers.append('Content-Type', 'application/json');
+    return this.http.get<any>( this.serverAddress + '/sources/getAllSource', {headers: headers})
       .pipe(map(res => res));
   }
 

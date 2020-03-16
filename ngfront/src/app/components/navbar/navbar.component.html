@@ -38,9 +38,9 @@
           </ul>
         </li>
         <li *ngIf="loggedIn" class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> Hi {{user.name}} <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> Hi {{user['name']}} <span class="caret"></span></a>
           <ul class="dropdown-menu nav-user-menu dropdown-menu-right notification-menu">
-            <li><a [routerLink] = "['/users', user.username ]"><i class="fa fa-user-circle-o" aria-hidden="true"></i> My Profile</a></li>
+            <li><a [routerLink] = "['/users', user['username'] ]"><i class="fa fa-user-circle-o" aria-hidden="true"></i> My Profile</a></li>
             <li><a [routerLink]="['./writeBlog']"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Write A Blog</a></li>
             <li><a [routerLink]="['./askQuestion']"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Ask A Question</a></li>
             <li role="separator" class="divider"></li>

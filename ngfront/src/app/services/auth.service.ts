@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tokenNotExpired } from 'angular2-jwt';
+import { JwtHelperService  } from '@auth0/angular-jwt';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 @Injectable()
 export class AuthService {
 
@@ -21,17 +23,17 @@ export class AuthService {
       this.serverAddress = this.mainService.getServerAddress();
   }
 
-  registerUser(user:any) {
+  registerUser(user:any):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post( this.serverAddress + '/users/register', user, {headers: headers })
+    return this.HttpClient .post<any>( this.serverAddress + '/users/register', user, {headers: headers })
       .pipe(map(res => res));
   }
 
-  authenticateUser(user) {
+  authenticateUser(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post( this.serverAddress + '/users/authenticate', user, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/authenticate', user, {headers: headers})
       .pipe(map(res => res));
   }
 
@@ -49,10 +51,10 @@ export class AuthService {
     localStorage.removeItem('user');
   }
 
-  authProfile(user) {
+  authProfile(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post( this.serverAddress + '/users/profile', user, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/profile', user, {headers: headers})
       .pipe(map(res => res));
   }
 
@@ -67,77 +69,79 @@ export class AuthService {
   }
 
   loggedIn() {
-    return tokenNotExpired('id_token');
+    const helper = new JwtHelperService();
+    return  helper.decodeToken('id_token');
+    // return tokenNotExpired('id_token');
   }
 
-  authUsername(user) {
+  authUsername(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post( this.serverAddress + '/users/forgotPassword/username', user, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/forgotPassword/username', user, {headers: headers})
       .pipe(map(res => res));
   }
 
-  changePassword(user) {
+  changePassword(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post( this.serverAddress + '/users/forgotPassword/answer', user, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/forgotPassword/answer', user, {headers: headers})
       .pipe(map(res => res));
   }
 
-  updateProfile(user) {
+  updateProfile(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.HttpClient .post( this.serverAddress + '/users/updateProfile', user, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/updateProfile', user, {headers: headers})
       .pipe(map(res => res));
   }
 
-  checkUsername(user) {
+  checkUsername(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.HttpClient .post( this.serverAddress + '/users/checkUsername', user, { headers: headers })
+    return this.HttpClient .post<any>( this.serverAddress + '/users/checkUsername', user, { headers: headers })
       .pipe(map(res => res));
   }
 
-  getRoleFromServer() {
+  getRoleFromServer():Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.HttpClient .get( this.serverAddress + '/users/getRole', { headers: headers })
+    return this.HttpClient .get<any>( this.serverAddress + '/users/getRole', { headers: headers })
       .pipe(map(res => res));
   }
 
-  searchPeople(searchObj) {
+  searchPeople(searchObj):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post( this.serverAddress + '/users/searchPeople', searchObj, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/searchPeople', searchObj, {headers: headers})
       .pipe(map(res => res));
   }
 
-  countUsers(searchObj) {
+  countUsers(searchObj):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post( this.serverAddress + '/users/countUsers', searchObj, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/countUsers', searchObj, {headers: headers})
       .pipe(map(res => res));
   }
 
-  makeContentManager(user) {
+  makeContentManager(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.HttpClient .post( this.serverAddress + '/users/makeContentManager', user, { headers: headers })
+    return this.HttpClient .post<any>( this.serverAddress + '/users/makeContentManager', user, { headers: headers })
       .pipe(map(res => res));
   }
 
-  getTeam() {
+  getTeam():Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .get( this.serverAddress + '/users/getTeam', {headers: headers})
+    return this.HttpClient .get<any>( this.serverAddress + '/users/getTeam', {headers: headers})
       .pipe(map(res => res));
   }
 

@@ -4,6 +4,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class CodeService {
@@ -19,25 +20,25 @@ export class CodeService {
     this.serverAddress = this.mainService.getServerAddress();
    }
 
-   submitCode(codeObj) {
+   submitCode(codeObj):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post( this.serverAddress + '/codes/submitCode', codeObj, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/codes/submitCode', codeObj, {headers: headers})
        .pipe(map(res => res));
    }
 
-   getUserSubmissions() {
+   getUserSubmissions():Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.get( this.serverAddress + '/codes/getUserSubmissions', {headers: headers})
+     return this.http.get<any>( this.serverAddress + '/codes/getUserSubmissions', {headers: headers})
        .pipe(map(res => res));
    }
 
-   getRecentSubmissions() {
+   getRecentSubmissions():Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      return this.http.get( this.serverAddress + '/codes/getRecentSubmissions', {headers: headers})
@@ -46,30 +47,30 @@ export class CodeService {
    getSubmissionById(submission) {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/codes/getSubmissionById', submission, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/codes/getSubmissionById', submission, {headers: headers})
        .pipe(map(res => res));
    }
 
-   searchCodes(searchObj) {
+   searchCodes(searchObj):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/codes/searchCodes', searchObj, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/codes/searchCodes', searchObj, {headers: headers})
        .pipe(map(res => res));
    }
 
-   countCodes(searchObj) {
+   countCodes(searchObj):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post( this.serverAddress + '/codes/countCodes', searchObj, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/codes/countCodes', searchObj, {headers: headers})
        .pipe(map(res => res));
    }
 
-   deleteCode(codeObj) {
+   deleteCode(codeObj): Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post( this.serverAddress + '/codes/deleteCode', codeObj, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/codes/deleteCode', codeObj, {headers: headers})
        .pipe(map(res => res));
    }
 
