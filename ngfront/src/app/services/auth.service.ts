@@ -19,6 +19,7 @@ export class AuthService {
     private HttpClient : HttpClient ,
     private flashMessagesService: FlashMessagesService,
     private mainService: MainService,
+    public jwtHelper: JwtHelperService
   ) {
       this.serverAddress = this.mainService.getServerAddress();
   }
@@ -40,6 +41,7 @@ export class AuthService {
   storeUserInfo(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
+   this.jwtHelper.decodeToken();
     this.authToken = token;
     this.user = user;
   }
@@ -69,8 +71,10 @@ export class AuthService {
   }
 
   loggedIn() {
-    const helper = new JwtHelperService();
-    return  helper.decodeToken('id_token');
+    // const helper = new JwtHelperService();
+    const token = localStorage.getItem('token');
+    return this.jwtHelper.isTokenExpired(token);
+    // return this.jwtHelper.getTokenExpirationDate();
     // return tokenNotExpired('id_token');
   }
 

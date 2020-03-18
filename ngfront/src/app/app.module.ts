@@ -5,7 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { JwtModule } from "@auth0/angular-jwt";
 
+// TinyMCE
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 import { FormsModule } from '@angular/forms';
 // import { RouterModule, Routes } from '@angular/router';
@@ -67,6 +70,9 @@ import { SubmissionComponent } from './components/submission/submission.componen
 import { SearchCodeComponent } from './components/search-code/search-code.component';
 import { AddStudyFileComponent } from './components/add-study-file/add-study-file.component';
 
+export function tokenGetter() {
+  return localStorage.getItem("id_token");
+}
 
 @NgModule({
   declarations: [
@@ -119,9 +125,17 @@ import { AddStudyFileComponent } from './components/add-study-file/add-study-fil
     AppRoutingModule,
     HttpClientModule,
     FlashMessagesModule,
+    EditorModule,
     AceEditorModule,
     FormsModule,
     FlashMessagesModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:3000'],
+        blacklistedRoutes: ['localhost:3000/users/authenticate']
+      }
+    })
     
   ],
   providers: [

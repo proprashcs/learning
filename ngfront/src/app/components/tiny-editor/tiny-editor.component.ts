@@ -1,84 +1,70 @@
-import {
-  Component,
-  AfterViewInit,
-  EventEmitter,
-  OnDestroy,
-  Input,
-  Output,
-  HostListener
-} from '@angular/core';
+import { Component, Output, Input, EventEmitter, HostListener, OnDestroy, AfterViewInit } from '@angular/core';
 
-import { MainService } from '../../services/main.service';
 import 'tinymce';
-import 'tinymce/themes/modern';
-import 'tinymce/plugins/table';
-import 'tinymce/plugins/link';
-import 'tinymce/plugins/image';
-import 'tinymce/plugins/paste';
-import 'tinymce/plugins/fullscreen';
-import 'tinymce/plugins/lists';
-import 'tinymce/plugins/charmap';
-import 'tinymce/plugins/insertdatetime';
-import 'tinymce/plugins/textcolor';
-import 'tinymce/plugins/code';
+import { MainService } from 'src/app/services/main.service';
 
-
-
-
-
-
-declare var tinymce: any;
 
 @Component({
   selector: 'app-tiny-editor',
   template: `
   <div class="form-group">
-    <textarea style="height: 40vh" id="body" name="body" class="form-control"></textarea>
+  <editor [init]="tinyMceSettings" style="height: 55vh" id="body" name="body" class="form-control"></editor>
+   
   </div>`
 })
-export class TinyEditorComponent implements AfterViewInit, OnDestroy {
+export class TinyEditorComponent   {
   @Output() onEditorContentChange = new EventEmitter();
   @Input() setBody: String;
   serverAddress: String;
-  @HostListener('window:unload', [ '$event' ])
-  beforeUnloadHandler(event) {
-    tinymce.remove(this.editor);
-  }
+  
 
   constructor(
     private mainService: MainService,
   ) {
+   
     this.serverAddress = this.mainService.getServerAddress();
+    // this.onEditorContentChange.emit('alert');
+    @HostListener('change') ngOnChanges() {
+      console.log('test');
+  }
+
   }
 
   editor;
+  // @HostListener('window:unload', [ '$event' ])
+  // beforeUnloadHandler(event) {
+  //   console.log('in side host lisner');
+  // this.editor = 'rrrr';
+  // }
 
-  ngAfterViewInit() {
-    tinymce.init({
-      selector: '#body',
-      plugins: ['link', 'table', 'paste', 'image', 'fullscreen', 'lists', 'insertdatetime', 'charmap', 'textcolor', 'code'],
-      menubar: false,
-      toolbar: 'styleselect | fontsizeselect | bullist numlist | bold italic underline removeformat | indent outdent | alignleft aligncenter alignright | forecolor backcolor | subscript superscript | insert table | fullscreen',
-      skin_url: 'assets/skins/lightgray',
-      paste_data_images: true,
-      relative_urls: false,
-      branding: true,
-      setup: editor => {
-        this.editor = editor;
-        editor.on('init', () => {
-          if (this.setBody) {
-           editor.setContent(this.setBody);
-         }
-        });
-        editor.on('keyup change', () => {
-          const content = editor.getContent();
-          this.onEditorContentChange.emit(content);
-        });
-      }
-    });
-  }
 
-  ngOnDestroy() {
-    tinymce.remove(this.editor);
+  public tinyMceSettings = {
+    base_url: 'tinymce', // Root for resources
+    suffix: '.min',       // Suffix to use when loading resources
+    skin_url: 'assets/tinymce/tinymce/skins/ui/oxide',
+    skin: "oxide",
+    content_css: ['assets/tinymce/tinymce/skins/ui/oxide/content.min.css',"assets/tinymce/css/custom-tinymce.css"],
+    inline: false,
+    statusbar: false,
+    browser_spellcheck: true,
+    height: 500,
+    extended_valid_elements : "b/strong,i/em",
+    formats: {
+        bold: {inline: 'b'},  
+        italic: {inline: 'i'}
+    },
+    plugins: 'advlist lists table searchreplace insertdatetime autolink visualblocks visualchars fullscreen image link hr pagebreak nonbreaking anchor toc wordcount imagetools textpattern',
+    toolbar: "undo redo | styleselect | bold italic underline subscript superscript removeformat | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fontsizeselect",
+    setup: (editor) => {
+      console.log(editor)
+      let that = this;
+      editor.on('keydown', function (e) {
+        if (e.keyCode == 32 && e.ctrlKey) {
+            
+        }
+      });
   }
+  };
+
+
 }

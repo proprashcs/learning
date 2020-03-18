@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "chak-len-de": {
@@ -21,23 +21,48 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/skins",
+                "output": "/tinymce/skins/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/themes",
+                "output": "/tinymce/themes/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/plugins",
+                "output": "/tinymce/plugins/"
+              }
             ],
             "styles": [
-             
               "src/styles.css"
             ],
             "scripts": [
-              "../node_modules/tinymce/tinymce.js",
-              "../node_modules/tinymce/themes/modern/theme.js",
-              "../node_modules/tinymce/plugins/link/plugin.js",
-              "../node_modules/tinymce/plugins/paste/plugin.js",
-              "../node_modules/tinymce/plugins/table/plugin.js",
-              "../node_modules/ace-builds/src-min/ace.js",
-              "../node_modules/ace-builds/src-min/theme-textmate.js",
-              "../node_modules/ace-builds/src-min/mode-c_cpp.js",
-              "../node_modules/ace-builds/src-min/mode-python.js",
-              "../node_modules/ace-builds/src-min/mode-java.js"
+              "node_modules/tinymce/tinymce.min.js",
+              "node_modules/tinymce/themes/silver/theme.min.js",
+              "node_modules/tinymce/plugins/lists/plugin.min.js",
+              "node_modules/tinymce/plugins/table/plugin.min.js",
+              "node_modules/tinymce/plugins/searchreplace/plugin.min.js",
+              "node_modules/tinymce/plugins/insertdatetime/plugin.min.js",
+              "node_modules/tinymce/plugins/advlist/plugin.min.js",
+              "node_modules/tinymce/plugins/autolink/plugin.min.js",
+              "node_modules/tinymce/plugins/visualblocks/plugin.min.js",
+              "node_modules/tinymce/plugins/visualchars/plugin.min.js",
+              "node_modules/tinymce/plugins/fullscreen/plugin.min.js",
+              "node_modules/tinymce/plugins/image/plugin.min.js",
+              "node_modules/tinymce/plugins/link/plugin.min.js",
+              "node_modules/tinymce/plugins/hr/plugin.min.js",
+              "node_modules/tinymce/plugins/pagebreak/plugin.min.js",
+              "node_modules/tinymce/plugins/nonbreaking/plugin.min.js",
+              "node_modules/tinymce/plugins/anchor/plugin.min.js",
+              "node_modules/tinymce/plugins/toc/plugin.min.js",
+              "node_modules/tinymce/plugins/wordcount/plugin.min.js",
+              "node_modules/tinymce/plugins/imagetools/plugin.min.js",
+              "node_modules/tinymce/plugins/textpattern/plugin.min.js"
             ]
           },
           "configurations": {
@@ -131,6 +156,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "chak-len-de"
 }

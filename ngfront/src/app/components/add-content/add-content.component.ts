@@ -46,10 +46,13 @@ export class AddContentComponent implements OnInit {
   }
 
   tinyResponce(tinyBody: String) {
+    console.log('i m inside tiny response');
+    console.log(tinyBody);
     this.body = tinyBody;
   }
 
   submitContent() {
+    console.log(this.name)
 
     if (!this.name || !this.body) {
       this.flashMessagesService.show(`Please fill all fields`, { cssClass: 'alert-danger', timeout: 2000 });
