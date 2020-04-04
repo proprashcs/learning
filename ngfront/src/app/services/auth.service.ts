@@ -47,8 +47,10 @@ export class AuthService {
   }
 
   userLogout() {
+    console.log('this is userLogout')
     this.authToken = null;
     this.user = null;
+    localStorage.removeItem('token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('user');
   }
@@ -72,8 +74,12 @@ export class AuthService {
 
   loggedIn() {
     // const helper = new JwtHelperService();
-    const token = localStorage.getItem('token');
-    return this.jwtHelper.isTokenExpired(token);
+    const token = localStorage.getItem('id_token');
+    // let isLoggedIn =  (token);
+    // console.log('isLoggedIn =' , isLoggedIn);
+    if(token)
+    return true;
+    return false;
     // return this.jwtHelper.getTokenExpirationDate();
     // return tokenNotExpired('id_token');
   }
