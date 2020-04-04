@@ -46,8 +46,8 @@ export class AddContentComponent implements OnInit {
   }
 
   tinyResponce(tinyBody: String) {
-    console.log('i m inside tiny response');
-    console.log(tinyBody);
+    console.log('i m inside tiny response --',tinyBody , '====');
+  
     this.body = tinyBody;
   }
 

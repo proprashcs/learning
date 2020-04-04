@@ -8,7 +8,7 @@ import { MainService } from 'src/app/services/main.service';
   selector: 'app-tiny-editor',
   template: `
   <div class="form-group">
-  <editor [init]="tinyMceSettings" style="height: 55vh" id="body" name="body" class="form-control"></editor>
+  <editor [init]="tinyMceSettings" style="height: 100%" id="body" name="body" class="form-control"></editor>
    
   </div>`
 })
@@ -24,12 +24,14 @@ export class TinyEditorComponent   {
    
     this.serverAddress = this.mainService.getServerAddress();
     // this.onEditorContentChange.emit('alert');
-    @HostListener('change') ngOnChanges() {
-      console.log('test');
-  }
+  //   @HostListener('change') ngOnChanges() {
+  //     console.log('test');
+  // }
 
   }
-
+ngOnInit(){
+  // this.onEditorContentChange.emit('ham honge kamyab');
+}
   editor;
   // @HostListener('window:unload', [ '$event' ])
   // beforeUnloadHandler(event) {
@@ -56,12 +58,15 @@ export class TinyEditorComponent   {
     plugins: 'advlist lists table searchreplace insertdatetime autolink visualblocks visualchars fullscreen image link hr pagebreak nonbreaking anchor toc wordcount imagetools textpattern',
     toolbar: "undo redo | styleselect | bold italic underline subscript superscript removeformat | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fontsizeselect",
     setup: (editor) => {
-      console.log(editor)
-      let that = this;
-      editor.on('keydown', function (e) {
-        if (e.keyCode == 32 && e.ctrlKey) {
-            
-        }
+      this.editor = editor;
+      editor.on('init', () => {
+        if (this.setBody) {
+         editor.setContent(this.setBody);
+       }
+      });
+      editor.on('keyup change', () => {
+        const content = editor.getContent();
+        this.onEditorContentChange.emit(content);
       });
   }
   };

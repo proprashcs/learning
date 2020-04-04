@@ -158,5 +158,8 @@
       }
     }
   },
-  "defaultProject": "chak-len-de"
+  "defaultProject": "chak-len-de",
+  "cli": {
+    "analytics": "4dfaf056-c0df-47f3-a9c0-a572b3e151d0"
+  }
 }

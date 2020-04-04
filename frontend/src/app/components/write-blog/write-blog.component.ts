@@ -24,6 +24,7 @@ export class WriteBlogComponent implements OnInit {
   }
 
   tinyResponce(tinyBody: String) {
+    console.log(tinyBody)
     this.body = tinyBody;
   }
 
