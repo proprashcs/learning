@@ -16,30 +16,21 @@ export class TinyEditorComponent   {
   @Output() onEditorContentChange = new EventEmitter();
   @Input() setBody: String;
   serverAddress: String;
-  
+
+  @HostListener('window:unload', [ '$event' ])
+  beforeUnloadHandler(event) {
+    // tinymce.remove(this.editor);
+  }
 
   constructor(
     private mainService: MainService,
   ) {
-   
     this.serverAddress = this.mainService.getServerAddress();
-    // this.onEditorContentChange.emit('alert');
-  //   @HostListener('change') ngOnChanges() {
-  //     console.log('test');
-  // }
-
   }
 ngOnInit(){
   // this.onEditorContentChange.emit('ham honge kamyab');
 }
   editor;
-  // @HostListener('window:unload', [ '$event' ])
-  // beforeUnloadHandler(event) {
-  //   console.log('in side host lisner');
-  // this.editor = 'rrrr';
-  // }
-
-
   public tinyMceSettings = {
     base_url: 'tinymce', // Root for resources
     suffix: '.min',       // Suffix to use when loading resources

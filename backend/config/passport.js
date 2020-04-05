@@ -10,7 +10,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 module.exports = function(passport) {
   let opts = {};
-  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('Bearer');
   opts.secretOrKey = config.secret;
   passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
       User.findOne({username: jwt_payload.username}, function(err, user) {

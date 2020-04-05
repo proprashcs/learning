@@ -104,7 +104,7 @@ router.post('/authenticate', (req, res, next) => {
           ${ err }`);
       }
       if (isMatch) {
-        let token = jwt.sign(user.toJSON(), config.secret, {
+        let token = 'Bearer ' + jwt.sign(user.toJSON(), config.secret, {
           expiresIn: 608400,
         });
         req.logIn(user, (err) => {
