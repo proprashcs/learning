@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-//   token = localStorage.getItem('token');
+  // token = localStorage.getItem('token');
   constructor(public auth: AuthService) { }
 
   intercept(
@@ -28,12 +28,13 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   isNeededToken(request) {
-    console.log('request is :', request);
+    // console.log('request is :', request);
     if (
       request.url &&
-      (request.url.indexOf('authenticate') > 0)
+      (request.url.indexOf('authenticate') > 0 || request.url.indexOf('search') > 0) || !this.auth.getToken() 
     ) {
       // authenticate, register, getAllSource, getTeam,forgotPassword
+      //countQuestions,questions,getAllTopicNames,countBlogs,blogs,countBlogs,searchBlogs
       return false;
     }
     return true;

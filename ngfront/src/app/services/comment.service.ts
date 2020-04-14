@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { MainService } from './main.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -18,17 +18,13 @@ export class CommentService {
    }
 
    addComment(newComment): Observable<any> {
-     const headers = new HttpHeaders;
-     headers.append("Content-Type", "application/json");
-     this.token = localStorage.getItem('id_token');
-     headers.append('Authorization', this.token);
+  
      return this.http.post<any>( this.serverAddress + '/comments/addComment', newComment)
        .pipe(map(res => res));
    }
 
    searchComments(commentData):Observable<any> {
-     const headers = new HttpHeaders;
-     headers.append("Content-Type", "application/json");
+  
      return this.http.post<any>( this.serverAddress + '/comments/searchComments', commentData)
        .pipe(map(res => res));
    }

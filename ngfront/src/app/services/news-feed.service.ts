@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 // import { tokenNotExpired } from 'angular2-jwt';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
@@ -20,19 +20,13 @@ export class NewsFeedService {
    }
 
    addFeed(newFeed):Observable<any> {
-    //  let headers = new HttpHeaders;
-    //  headers.append('Content-Type', 'application/json');
-    //  this.token = localStorage.getItem('id_token');
-    //  headers.append('Authorization', this.token);
+ 
      return this.http.post<any>( this.serverAddress + '/newsFeeds/addFeed', newFeed)
        .pipe(map(res => res));
    }
 
    deleteFeed(feed):Observable<any> {
-    //  let headers = new HttpHeaders;
-    //  headers.append('Content-Type', 'application/json');
-    //  this.token = localStorage.getItem('id_token');
-    //  headers.append('Authorization', this.token);
+   
      return this.http.post<any>( this.serverAddress + '/newsFeeds/deleteFeed', feed)
        .pipe(map(res => res));
    }
@@ -41,11 +35,7 @@ export class NewsFeedService {
 
 
    getAllFeed():Observable<any> {
-    //  let headers = new HttpHeaders;
-    //  headers.append('Content-Type', 'application/json');
-    //  this.token = localStorage.getItem('id_token');
-    //  console.log('token = ', this.token);
-    //  headers.append('Authorization', this.token);
+   
      return this.http.get<any>( this.serverAddress + '/newsFeeds/getAllFeed')
        .pipe(map(res => res));
    }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 // import { tokenNotExpired } from 'angular2-jwt';
 import { JwtHelperService  } from '@auth0/angular-jwt';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -21,36 +21,24 @@ export class FeedbackService {
    }
 
    addFeedback(newFeedback):Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     this.token = localStorage.getItem('id_token');
-     headers.append('Authorization', this.token);
+     
      return this.http.post<any>( this.serverAddress + '/feedbacks/addFeedback', newFeedback)
        .pipe(map(res => res));
    }
 
    getAllFeedback():Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     this.token = localStorage.getItem('id_token');
-     headers.append('Authorization', this.token);
+ 
      return this.http.get<any>( this.serverAddress + '/feedbacks/getAllFeedback')
        .pipe(map(res => res));
    }
 
    replyToFeedback(newReply):Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     this.token = localStorage.getItem('id_token');
-     headers.append('Authorization', this.token);
+ 
      return this.http.post<any>( this.serverAddress + '/feedbacks/replyToFeedback', newReply)
        .pipe(map(res => res));
    }
    getFeedbackByUsername():Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     this.token = localStorage.getItem('id_token');
-     headers.append('Authorization', this.token);
+    
      return this.http.get<any>( this.serverAddress + '/feedbacks/getFeedbackByUsername')
        .pipe(map(res => res));
    }

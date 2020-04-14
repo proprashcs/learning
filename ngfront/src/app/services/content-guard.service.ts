@@ -4,7 +4,7 @@ import { CanActivate } from '@angular/router';
 import { AuthService } from './auth.service';
 import { MainService } from './main.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs';
@@ -29,11 +29,8 @@ export class ContentGuardService {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<any> {
     let url = state.url;
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    this.token = localStorage.getItem('id_token');
-    headers.append('Authorization', this.token);
-    return this.http.get<any>( this.serverAddress + '/users/getRole', { headers: headers })
+   
+    return this.http.get<any>( this.serverAddress + '/users/getRole')
       .pipe(map(res => {
         if(res['role'] === 'Admin' || res['role'] === 'Content Manager') {
           return true;

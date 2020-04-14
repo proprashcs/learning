@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
 import { map } from 'rxjs/operators';
@@ -21,55 +21,42 @@ export class CodeService {
    }
 
    submitCode(codeObj):Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     this.token = localStorage.getItem('id_token');
-     headers.append('Authorization', this.token);
+    
      return this.http.post<any>( this.serverAddress + '/codes/submitCode', codeObj)
        .pipe(map(res => res));
    }
 
    getUserSubmissions():Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     this.token = localStorage.getItem('id_token');
-     headers.append('Authorization', this.token);
+    
      return this.http.get<any>( this.serverAddress + '/codes/getUserSubmissions')
        .pipe(map(res => res));
    }
 
    getRecentSubmissions():Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
+     
      return this.http.get( this.serverAddress + '/codes/getRecentSubmissions')
        .pipe(map(res => res));
    }
    getSubmissionById(submission) {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
+    
      return this.http.post<any>( this.serverAddress + '/codes/getSubmissionById', submission)
        .pipe(map(res => res));
    }
 
    searchCodes(searchObj):Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
+    
      return this.http.post<any>( this.serverAddress + '/codes/searchCodes', searchObj)
        .pipe(map(res => res));
    }
 
    countCodes(searchObj):Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
+    
      return this.http.post<any>( this.serverAddress + '/codes/countCodes', searchObj)
        .pipe(map(res => res));
    }
 
    deleteCode(codeObj): Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     this.token = localStorage.getItem('id_token');
-     headers.append('Authorization', this.token);
+     
      return this.http.post<any>( this.serverAddress + '/codes/deleteCode', codeObj)
        .pipe(map(res => res));
    }

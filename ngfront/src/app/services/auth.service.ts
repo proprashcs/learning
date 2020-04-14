@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { JwtHelperService  } from '@auth0/angular-jwt';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
@@ -52,8 +52,7 @@ export class AuthService {
   }
 
   authProfile(user):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
+  
     return this.HttpClient .post<any>( this.serverAddress + '/users/profile', user)
       .pipe(map(res => res));
   }
@@ -81,77 +80,58 @@ export class AuthService {
   }
 
   authUsername(user):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
+    
     return this.HttpClient .post<any>( this.serverAddress + '/users/authenticate/forgotPassword/username', user)
       .pipe(map(res => res));
   }
 
   changePassword(user):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
+    
     return this.HttpClient .post<any>( this.serverAddress + '/users/authenticate/forgotPassword/answer', user)
       .pipe(map(res => res));
   }
 
   updateProfile(user):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    this.token = localStorage.getItem('id_token');
-    headers.append('Authorization', this.token);
+
     return this.HttpClient .post<any>( this.serverAddress + '/users/updateProfile', user)
       .pipe(map(res => res));
   }
 
   checkUsername(user):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    this.token = localStorage.getItem('id_token');
-    headers.append('Authorization', this.token);
-    return this.HttpClient .post<any>( this.serverAddress + '/users/checkUsername', user, { headers: headers })
+  
+    return this.HttpClient .post<any>( this.serverAddress + '/users/checkUsername', user)
       .pipe(map(res => res));
   }
 
   getRoleFromServer():Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    this.token = localStorage.getItem('id_token');
-    headers.append('Authorization', this.token);
-    return this.HttpClient .get<any>( this.serverAddress + '/users/getRole', { headers: headers })
+   
+    return this.HttpClient .get<any>( this.serverAddress + '/users/getRole')
       .pipe(map(res => res));
   }
 
   searchPeople(searchObj):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
+   
     return this.HttpClient .post<any>( this.serverAddress + '/users/searchPeople', searchObj)
       .pipe(map(res => res));
   }
 
   countUsers(searchObj):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
     return this.HttpClient .post<any>( this.serverAddress + '/users/countUsers', searchObj)
       .pipe(map(res => res));
   }
 
   makeContentManager(user):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    this.token = localStorage.getItem('id_token');
-    headers.append('Authorization', this.token);
-    return this.HttpClient .post<any>( this.serverAddress + '/users/makeContentManager', user, { headers: headers })
+    return this.HttpClient .post<any>( this.serverAddress + '/users/makeContentManager', user)
       .pipe(map(res => res));
   }
 
   getTeam():Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
+  
     return this.HttpClient .get<any>( this.serverAddress + '/users/authenticate/getTeam')
       .pipe(map(res => res));
   }
 
   handleError(error: any) {
-    this.flashMessagesService.show(error.statusText || "Server s. Contact admin if error persists", { cssClass: 'alert-danger', timeout: 2500 });
+    this.flashMessagesService.show(error.statusText || "Server Error. Contact admin if error persists", { cssClass: 'alert-danger', timeout: 2500 });
   }
 }

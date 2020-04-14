@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { MainService } from './main.service';
 import { map } from 'rxjs/operators';
@@ -20,15 +20,13 @@ export class NotificationService {
   }
 
   getUnreadNotifications(userData):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
+    
     return this.http.post<any>( this.serverAddress + '/notifications/getUnreadNotifications', userData)
       .pipe(map(res => res));
   }
 
   markAsRead(data):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
+  
     return this.http.post<any>( this.serverAddress + '/notifications/markAsRead', data)
       .pipe(map(res => res));
   }
