@@ -22,14 +22,14 @@ export class NotificationService {
   getUnreadNotifications(userData):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post<any>( this.serverAddress + '/notifications/getUnreadNotifications', userData, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/notifications/getUnreadNotifications', userData)
       .pipe(map(res => res));
   }
 
   markAsRead(data):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post<any>( this.serverAddress + '/notifications/markAsRead', data, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/notifications/markAsRead', data)
       .pipe(map(res => res));
   }
 

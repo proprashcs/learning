@@ -25,7 +25,7 @@ export class CodeService {
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post<any>( this.serverAddress + '/codes/submitCode', codeObj, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/codes/submitCode', codeObj)
        .pipe(map(res => res));
    }
 
@@ -34,34 +34,34 @@ export class CodeService {
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.get<any>( this.serverAddress + '/codes/getUserSubmissions', {headers: headers})
+     return this.http.get<any>( this.serverAddress + '/codes/getUserSubmissions')
        .pipe(map(res => res));
    }
 
    getRecentSubmissions():Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.get( this.serverAddress + '/codes/getRecentSubmissions', {headers: headers})
+     return this.http.get( this.serverAddress + '/codes/getRecentSubmissions')
        .pipe(map(res => res));
    }
    getSubmissionById(submission) {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post<any>( this.serverAddress + '/codes/getSubmissionById', submission, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/codes/getSubmissionById', submission)
        .pipe(map(res => res));
    }
 
    searchCodes(searchObj):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post<any>( this.serverAddress + '/codes/searchCodes', searchObj, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/codes/searchCodes', searchObj)
        .pipe(map(res => res));
    }
 
    countCodes(searchObj):Observable<any> {
      let headers = new HttpHeaders;
      headers.append('Content-Type', 'application/json');
-     return this.http.post<any>( this.serverAddress + '/codes/countCodes', searchObj, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/codes/countCodes', searchObj)
        .pipe(map(res => res));
    }
 
@@ -70,7 +70,7 @@ export class CodeService {
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post<any>( this.serverAddress + '/codes/deleteCode', codeObj, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/codes/deleteCode', codeObj)
        .pipe(map(res => res));
    }
 

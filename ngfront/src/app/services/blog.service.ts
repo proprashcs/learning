@@ -21,16 +21,15 @@ export class BlogService {
    }
 
    getBlogCount(blogInfo):Observable<any> {
-     let headers = new HttpHeaders;
-     headers.append('Content-Type', 'application/json');
-     return this.http.post<any>( this.serverAddress + '/blogs/countBlogs', blogInfo, {headers: headers})
+
+     return this.http.post<any>( this.serverAddress + '/blogs/countBlogs', blogInfo)
        .pipe(map(res => res));
    }
 
   getBlogs(blogInfo):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post<any>( this.serverAddress + '/blogs', blogInfo, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs', blogInfo)
       .pipe(map(res => res));
   }
 
@@ -39,7 +38,7 @@ export class BlogService {
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post<any>( this.serverAddress + '/blogs/searchBlogs', blogObj, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs/searchBlogs', blogObj)
       .pipe(map(res => res));
   }
 
@@ -48,14 +47,14 @@ export class BlogService {
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post<any>( this.serverAddress + '/blogs/getBlogById', blog, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs/getBlogById', blog)
       .pipe(map(res => res));
   }
 
   getBlogByUsername(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.http.post<any>( this.serverAddress + '/blogs/getBlogByUsername', user, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs/getBlogByUsername', user)
       .pipe(map(res => res));
   }
 
@@ -64,7 +63,7 @@ export class BlogService {
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post<any>( this.serverAddress + '/blogs/addBlog', blog, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs/addBlog', blog)
       .pipe(map(res => res));
   }
 
@@ -73,7 +72,7 @@ export class BlogService {
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.http.post<any>( this.serverAddress + '/blogs/editBlog', blog, {headers: headers})
+    return this.http.post<any>( this.serverAddress + '/blogs/editBlog', blog)
       .pipe(map(res => res));
   }
 

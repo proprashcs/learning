@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { JwtModule } from "@auth0/angular-jwt";
 
@@ -69,6 +69,7 @@ import { CodeService } from './services/code.service';
 import { SubmissionComponent } from './components/submission/submission.component';
 import { SearchCodeComponent } from './components/search-code/search-code.component';
 import { AddStudyFileComponent } from './components/add-study-file/add-study-file.component';
+import { HttpInterceptorService } from './services/http-interceptor.service';
 
 export function tokenGetter() {
   return localStorage.getItem("id_token");
@@ -152,6 +153,11 @@ export function tokenGetter() {
     FeedbackService,
     NewsFeedService,
     CodeService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

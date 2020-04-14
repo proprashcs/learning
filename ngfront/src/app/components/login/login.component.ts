@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.authenticateUser(user).subscribe(
       data  => {
+      
         if (data.success) {
           this.authService.storeUserInfo(data.token, data.user);
           localStorage.setItem('login', 'true');
@@ -60,6 +61,7 @@ export class LoginComponent implements OnInit {
         }
       },
       err => {
+        console.log(err)
         this.authService.handleError(err);
     });
   }

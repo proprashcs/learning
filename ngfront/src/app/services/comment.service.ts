@@ -22,14 +22,14 @@ export class CommentService {
      headers.append("Content-Type", "application/json");
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post<any>( this.serverAddress + '/comments/addComment', newComment, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/comments/addComment', newComment)
        .pipe(map(res => res));
    }
 
    searchComments(commentData):Observable<any> {
      const headers = new HttpHeaders;
      headers.append("Content-Type", "application/json");
-     return this.http.post<any>( this.serverAddress + '/comments/searchComments', commentData, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/comments/searchComments', commentData)
        .pipe(map(res => res));
    }
 

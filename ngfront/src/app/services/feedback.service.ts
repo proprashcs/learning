@@ -25,7 +25,7 @@ export class FeedbackService {
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post<any>( this.serverAddress + '/feedbacks/addFeedback', newFeedback, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/feedbacks/addFeedback', newFeedback)
        .pipe(map(res => res));
    }
 
@@ -34,7 +34,7 @@ export class FeedbackService {
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.get<any>( this.serverAddress + '/feedbacks/getAllFeedback', {headers: headers})
+     return this.http.get<any>( this.serverAddress + '/feedbacks/getAllFeedback')
        .pipe(map(res => res));
    }
 
@@ -43,7 +43,7 @@ export class FeedbackService {
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.post<any>( this.serverAddress + '/feedbacks/replyToFeedback', newReply, {headers: headers})
+     return this.http.post<any>( this.serverAddress + '/feedbacks/replyToFeedback', newReply)
        .pipe(map(res => res));
    }
    getFeedbackByUsername():Observable<any> {
@@ -51,7 +51,7 @@ export class FeedbackService {
      headers.append('Content-Type', 'application/json');
      this.token = localStorage.getItem('id_token');
      headers.append('Authorization', this.token);
-     return this.http.get<any>( this.serverAddress + '/feedbacks/getFeedbackByUsername', {headers: headers})
+     return this.http.get<any>( this.serverAddress + '/feedbacks/getFeedbackByUsername')
        .pipe(map(res => res));
    }
 

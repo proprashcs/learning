@@ -38,7 +38,7 @@ router.post('/addSource', passport.authenticate('jwt', { session: false }), (req
   });
 });
 
-router.get('/getAllSource', (req, res, next) => {
+router.get('/authenticate/getAllSource', (req, res, next) => {
   Source.getAllSource((err, data) => {
     if (err) {
       console.error(`Error fetching sources`);

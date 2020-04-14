@@ -25,16 +25,12 @@ export class AuthService {
   }
 
   registerUser(user:any):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post<any>( this.serverAddress + '/users/register', user, {headers: headers })
+    return this.HttpClient .post<any>( this.serverAddress + '/users/authenticate/register', user)
       .pipe(map(res => res));
   }
 
   authenticateUser(user):Observable<any> {
-    let headers = new HttpHeaders;
-    headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post<any>( this.serverAddress + '/users/authenticate', user, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/authenticate', user)
       .pipe(map(res => res));
   }
 
@@ -58,13 +54,13 @@ export class AuthService {
   authProfile(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post<any>( this.serverAddress + '/users/profile', user, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/profile', user)
       .pipe(map(res => res));
   }
 
   getToken() {
-    const token = localStorage.getItem('id_token');
-    this.authToken = token;
+    return localStorage.getItem('id_token');
+    // this.authToken = token;
   }
 
   getUser() {
@@ -87,14 +83,14 @@ export class AuthService {
   authUsername(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post<any>( this.serverAddress + '/users/forgotPassword/username', user, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/authenticate/forgotPassword/username', user)
       .pipe(map(res => res));
   }
 
   changePassword(user):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post<any>( this.serverAddress + '/users/forgotPassword/answer', user, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/authenticate/forgotPassword/answer', user)
       .pipe(map(res => res));
   }
 
@@ -103,7 +99,7 @@ export class AuthService {
     headers.append('Content-Type', 'application/json');
     this.token = localStorage.getItem('id_token');
     headers.append('Authorization', this.token);
-    return this.HttpClient .post<any>( this.serverAddress + '/users/updateProfile', user, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/updateProfile', user)
       .pipe(map(res => res));
   }
 
@@ -128,14 +124,14 @@ export class AuthService {
   searchPeople(searchObj):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post<any>( this.serverAddress + '/users/searchPeople', searchObj, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/searchPeople', searchObj)
       .pipe(map(res => res));
   }
 
   countUsers(searchObj):Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .post<any>( this.serverAddress + '/users/countUsers', searchObj, {headers: headers})
+    return this.HttpClient .post<any>( this.serverAddress + '/users/countUsers', searchObj)
       .pipe(map(res => res));
   }
 
@@ -151,11 +147,11 @@ export class AuthService {
   getTeam():Observable<any> {
     let headers = new HttpHeaders;
     headers.append('Content-Type', 'application/json');
-    return this.HttpClient .get<any>( this.serverAddress + '/users/getTeam', {headers: headers})
+    return this.HttpClient .get<any>( this.serverAddress + '/users/authenticate/getTeam')
       .pipe(map(res => res));
   }
 
   handleError(error: any) {
-    this.flashMessagesService.show(error.statusText || "Server Error. Contact admin if error persists", { cssClass: 'alert-danger', timeout: 2500 });
+    this.flashMessagesService.show(error.statusText || "Server s. Contact admin if error persists", { cssClass: 'alert-danger', timeout: 2500 });
   }
 }

@@ -37,7 +37,7 @@ const upload = multer({ storage: storage });
 
 
 // Register
-router.post('/register' , (req, res, next) => {
+router.post('/authenticate/register' , (req, res, next) => {
   let newUser = new User({
     name: req.body.name,
     email: req.body.email,
@@ -227,7 +227,7 @@ router.post('/addAvatar',fileUpload, (req, res, next) => {
   });
 });
 
-router.post('/forgotPassword/username', (req, res, next) => {
+router.post('/authenticate/forgotPassword/username', (req, res, next) => {
   let username = req.body.username;
   User.forgotPassword(username, (err, user) => {
     if (err) {
@@ -248,7 +248,7 @@ router.post('/forgotPassword/username', (req, res, next) => {
   });
 });
 
-router.post('/forgotPassword/answer', (req, res, next) => {
+router.post('/authenticate/forgotPassword/answer', (req, res, next) => {
   let username = req.body.username;
   let answer = req.body.answer;
   let password = req.body.password;
@@ -366,7 +366,7 @@ router.post('/makeContentManager', passport.authenticate('jwt', { session: false
   }
 });
 
-router.get('/getTeam', (req, res, next) => {
+router.get('/authenticate/getTeam', (req, res, next) => {
   User.getTeam((err, data) => {
     if (err) {
       console.error(`Error fetching team`);
